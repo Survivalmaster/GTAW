@@ -1,0 +1,910 @@
+:root{
+  --bg:#0b0b0c;
+  --panel:#111214;
+  --panel-2:#0e0f11;
+  --panel-3:#0f1012;
+  --muted:#9aa0a6;
+  --text:#e6e6e7;
+  --line:#1f2226;
+  --accent:#4ea3ff;
+  --success:#5ac38c;
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text);
+  font:14px/1.25 system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,"Apple Color Emoji","Segoe UI Emoji";
+}
+
+.app{display:grid;grid-template-columns:260px 1fr;height:100vh;}
+.sidebar{background:var(--panel-2);border-right:1px solid var(--line);display:flex;flex-direction:column;}
+.main{display:flex;flex-direction:column;min-width:0;}
+
+.topbar{height:48px;display:flex;align-items:center;gap:10px;padding:0 14px;background:var(--panel-3);border-bottom:1px solid var(--line);}
+.badge{display:flex;align-items:center;gap:10px;font-weight:600;color:#cfd4d8;}
+.badge .logo-img{width:26px;height:26px;object-fit:contain;}
+.badge .logo{width:26px;height:26px;border-radius:50%;background:#1a1d22;display:grid;place-items:center;border:1px solid var(--line)}
+.badge .logo svg{opacity:.9}
+
+.crumbs{display:flex;align-items:center;gap:8px;padding:12px 18px;border-bottom:1px solid var(--line);color:#c5c9ce}
+.crumbs .chip{display:inline-flex;gap:6px;align-items:center;border:1px solid var(--line);background:#0f1114;padding:6px 8px;border-radius:8px;font-weight:600}
+.crumbs .sep{opacity:.5}
+
+.nav{padding:10px 10px 16px;overflow:auto;}
+.section-title{padding:14px 10px 8px;font-size:12px;letter-spacing:.04em;color:#7b8189;text-transform:uppercase}
+.item{display:flex;align-items:center;gap:10px;padding:9px 10px;margin:2px 0;border-radius:10px;color:#cfd4d8;text-decoration:none;border:1px solid transparent}
+.item:hover{background:#12151a;border-color:var(--line)}
+.item.active{background:#12151a;border-color:var(--line)}
+.item svg{width:16px;height:16px;opacity:.9}
+.sub{margin-left:8px;}
+.item.toggle{cursor:pointer;user-select:none;}
+.item.toggle.open .chev{transform:rotate(180deg);}
+.chev{margin-left:auto;transition:transform .15s ease;opacity:.8;}
+
+.submenu{display:none;padding-left:28px;margin-top:6px;}
+.submenu.show{display:block;}
+.subbtn{display:block;width:100%;text-align:left;padding:6px 12px;margin:2px 0;border-radius:8px;background:#0f1114;color:#cfd4d8;border:1px solid var(--line);font-size:13px;cursor:pointer;}
+.subbtn:hover{background:#12151a;}
+
+.side-foot{margin-top:auto;padding:10px;border-top:1px solid var(--line);}
+.pill-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.pill{display:flex;gap:8px;align-items:center;justify-content:center;padding:8px 10px;border:1px solid var(--line);background:#0e1013;color:#cbd0d6;border-radius:12px;text-decoration:none}
+.pill:hover{outline:1px solid #1f2937}
+.usr{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:10px;padding:8px 10px;border:1px solid var(--line);border-radius:12px;background:#0e1013}
+.avatar{width:22px;height:22px;border-radius:6px;background:#1a1e23;border:1px solid var(--line)}
+
+.content{padding:16px;overflow:auto;}
+/* IMPORTANT: allow cards to grow vertically */
+.grid{display:grid;gap:16px;grid-template-columns:repeat(12,1fr);grid-auto-rows:minmax(220px, auto);}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;position:relative;overflow:hidden;box-shadow:0 0 0 1px rgba(0,0,0,.4) inset;}
+.card::before{content:"";position:absolute;inset:0;opacity:.16;pointer-events:none;background:repeating-linear-gradient(135deg,rgba(255,255,255,.25) 0 2px,transparent 2px 8px);mix-blend-mode:soft-light;}
+.card .head{position:absolute;top:10px;left:12px;font-weight:600;font-size:13px;color:#cfd4d8;}
+.card .meta{position:absolute;top:10px;right:12px;font-size:12px;color:#8a9098}
+
+/* Hub + Activity cards */
+.hub-card{
+  grid-column:1 / span 8;
+  height:260px;            /* fixed height so it won’t grow with log */
+  padding:44px 16px 16px;
+  align-self:start;
+}
+.hub-body{margin-top:22px;color:#c5c9ce;font-size:14px;}
+.hub-list{margin:8px 0 0 18px;padding:0}
+
+.activity-log{
+  grid-column:9 / span 4;
+  /* let it grow naturally as items are added */
+  min-height:260px;
+  padding:44px 16px 16px;
+  position:relative;
+  overflow:visible;       /* ensure no inner scrolling */
+}
+
+/* Clear Today button: ghost style, placed under title top-left */
+.log-actions{
+  display:flex;
+  gap:8px;
+  position:absolute;
+  top:32px;
+  left:12px;
+  right:12px;     /* span full width */
+  justify-content:flex-start;
+}
+
+.log-actions #clearActivity{
+  margin-left:auto;   /* pushes Clear Shift to the far right */
+}
+.log-actions .btn{
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#0e1013;
+  color:#cfd4d8;
+  cursor:pointer;
+}
+.log-actions .btn:hover{background:#12151a}
+
+#activityMeta{position:absolute;top:10px;right:12px;font-size:12px;color:#8a9098}
+
+/* list now just pushes card taller (no scroll) */
+.log-list{list-style:none;margin:56px 0 0;padding:0;}
+.log-item{display:flex;align-items:center;gap:12px;padding:10px;border:1px solid var(--line);border-radius:10px;margin-bottom:8px;background:#0e1013;}
+.log-pill{padding:4px 8px;border-radius:999px;border:1px solid var(--line);font-weight:700;font-size:11px;color:#cfd4d8;}
+.log-title{font-weight:600;color:#cfd4d8}
+.log-sub{font-size:12px;color:#96a0aa}
+.log-time{margin-left:auto;font-size:12px;color:#8a9098}
+.empty{margin-top:48px;text-align:center;color:#8a9098}
+
+/* Workarea + Output (Traffic Collision Reports) */
+.workarea{
+  grid-column:1 / span 8;
+  grid-row:2;
+  padding:44px 16px 16px;
+  display:flex;
+  flex-direction:column;
+}
+
+.work-actions{
+  display:flex;
+  gap:8px;
+  margin-bottom:16px;
+}
+.work-actions .btn{
+  padding:7px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#0e1013;
+  color:#cfd4d8;
+  font-size:13px;
+  cursor:pointer;
+}
+.work-actions .btn.active{
+  background:#1a1d22;
+  border-color:var(--accent);
+  color:#fff;
+}
+.work-actions .btn:hover:not(.active){
+  background:#12151a;
+}
+
+.form-container{
+  flex:1;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#0f1114;
+  color:#e6e6e7;
+  overflow:auto;
+}
+
+/* Output card */
+.output{
+  grid-column:9 / span 4;
+  grid-row:2;
+  display:flex;
+  flex-direction:column;
+}
+.title-wrap{padding:40px 16px 8px;}
+.title-input{
+  width:100%;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:#0f1114;
+  color:#e6e6e7;
+}
+.bbcode{
+  flex:1;
+  margin:8px 16px 16px;
+  padding:10px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:#0f1114;
+  color:#e6e6e7;
+  resize:none;
+  min-height:180px;
+}
+.out-actions{
+  display:flex;
+  gap:8px;
+  padding:0 16px 16px;
+}
+.copy-btn{
+  flex:1;
+  padding:8px;
+  border-radius:8px;
+  border:1px solid var(--line);
+  background:#0e1013;
+  color:#cfd4d8;
+  cursor:pointer;
+}
+.copy-btn:hover{background:#12151a}
+
+/* Forms inside cards */
+.form-section{padding:12px 16px;display:flex;flex-direction:column;gap:12px;}
+.form-row{display:flex;gap:12px;}
+.form-row label{flex:1;display:flex;flex-direction:column;gap:4px;font-size:13px;color:#cfd4d8;}
+.form-row label.full{flex:100%}
+.form-row input,.form-row select,.form-row textarea{padding:8px;border-radius:8px;border:1px solid var(--line);background:#0f1114;color:#e6e6e7;}
+.form-row textarea{min-height:80px;resize:vertical;}
+.inline-actions{display:flex;align-items:center;gap:12px;padding:6px 16px;}
+.inline-actions .tag{font-size:12px;font-weight:600;color:#cfd4d8;}
+.inline-actions .btn.ghost{padding:4px 8px;font-size:12px;border-radius:8px;background:#0f1114;color:#cfd4d8;border:1px solid var(--line);cursor:pointer;}
+.inline-actions .btn.ghost:hover{background:#12151a}
+
+.radio-line{display:flex;align-items:flex-start;gap:8px;}
+.radio-label{flex:1;font-size:13px;color:#cfd4d8;line-height:1.4}
+
+.hidden{display:none!important}
+
+/* Responsive */
+@media(max-width:1200px){.hub-card,.activity-log,.workarea,.output{grid-column:1 / span 12}}
+@media(max-width:900px){.app{grid-template-columns:80px 1fr}.hide-sm{display:none}}
+@media(max-width:640px){.crumbs{padding:10px}.content{padding:10px}}
+
+/* ==== RESTORE: Traffic Collision Reports layout (pre-height-tweak version) ==== */
+
+/* TCR grid section: two cards on the same row */
+.tcr-section{
+  grid-column:1 / span 12;
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  gap:16px;
+}
+
+/* Workarea (left) */
+.workarea{
+  grid-column:1 / span 8;
+  min-height:360px;
+  padding:44px 16px 16px;
+  display:flex;
+  flex-direction:column;
+}
+
+/* Top button row inside Workarea */
+.work-actions{
+  display:flex;
+  gap:8px;
+  margin:8px 0 10px 0;
+}
+.work-actions .btn{
+  padding:8px 12px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#0e1013;
+  color:#cfd4d8;
+  font-size:12px;
+  cursor:pointer;
+}
+.work-actions .btn.active{ outline:1px solid #1f2937; }
+.work-actions .btn:hover:not(.active){ background:#12151a; }
+
+/* Form container area */
+.form-container{
+  flex:1;
+  margin-top:8px;
+  padding:16px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:#0f1114;
+  color:#e6e6e7;
+  overflow:auto;
+}
+
+/* Output (right) */
+.output{
+  grid-column:9 / span 4;
+  min-height:360px;
+  padding:44px 16px 16px;
+  display:flex;
+  flex-direction:column;
+}
+
+.title-wrap{ margin:26px 0 8px; }
+.title-input{
+  width:100%;
+  border:1px solid var(--line);
+  background:#0b0d11;
+  color:#e6e6e7;
+  border-radius:8px;
+  padding:10px 12px;
+  font-weight:600;
+}
+
+.bbcode{
+  width:100%;
+  min-height:200px;
+  border:1px solid var(--line);
+  background:#0b0d11;
+  color:#e6e6e7;
+  border-radius:8px;
+  padding:10px 12px;
+  font-family:ui-monospace, SFMono-Regular, Menlo, monospace;
+  flex:1;
+}
+
+.out-actions{
+  display:flex;
+  gap:8px;
+  margin-top:10px;
+}
+
+.copy-btn{
+  padding:8px 10px;
+  border-radius:10px;
+  border:1px solid var(--line);
+  background:#0e1013;
+  color:#cfd4d8;
+  cursor:pointer;
+}
+.copy-btn:hover{ background:#12151a; }
+
+/* Responsive behavior same as before */
+@media (max-width:1200px){
+  .tcr-section{ grid-template-columns:repeat(12,1fr); }
+  .workarea{ grid-column:1 / span 12; }
+  .output{ grid-column:1 / span 12; }
+}
+
+/* Make settings button transparent */
+.subbtn.settings-btn {
+  background: transparent;
+  border: none;
+  padding-left: 0;   /* aligns with icon/text nicely */
+}
+
+.subbtn.settings-btn:hover {
+  background: transparent; /* no hover fill */
+  color: var(--accent);    /* optional: accent color on hover */
+}
+
+#settingsBtn {
+  cursor: pointer;
+}
+
+/* Icon badge styles */
+.activity-badge{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:2rem;
+  height:2rem;
+  padding:0 .5rem;
+  border-radius:999px;
+  border:1px solid var(--line);
+  background:#0e1013;
+  color:#cfd4d8;
+  font-weight:700;
+  font-size:11px;
+}
+.activity-badge.is-icon{ padding:0;width:2rem; }
+.activity-badge__svg{ width:1.3rem;height:1.3rem;margin:auto;display:block; }
+.badge-default{ color:var(--accent); }
+.badge-officer{ color:#3b82f6; }
+.badge-city{ color:#9ca3af; }
+.badge-fatal    { color:#ef4444; }  /* red for Fatality */
+.badge-civilian { color:#facc15; }  /* amber/yellow for Civilian */
+
+/* ===== Modals ===== */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.5);display:none;align-items:center;justify-content:center;z-index:50;}
+.modal[aria-hidden="false"]{display:flex;}
+.modal__dialog{width:min(640px,92vw);background:var(--panel);border:1px solid var(--line);border-radius:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);}
+.modal__header,.modal__footer{padding:12px 14px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;}
+.modal__footer{border-bottom:none;border-top:1px solid var(--line);}
+.modal__body{padding:12px 14px;display:flex;flex-direction:column;gap:12px;}
+.modal__close{background:transparent;border:0;color:#cfd4d8;font-size:20px;cursor:pointer;line-height:1;}
+
+/* Log icon variants for new types */
+.badge-shiftstart{ color:#10b981; }  /* green */
+.badge-shiftend  { color:#ef4444; }  /* red */
+.badge-meal { color: #a0522d; }  /* sienna brown */
+.badge-task      { color:#9ca3af; }  /* gray */
+.badge-summary   { color:#22c55e; }  /* green accent for summary */
+
+/* Tidy checkbox alignment + group look in modals */
+.modal .form-section { border:1px solid var(--line); border-radius:10px; padding:10px; background:rgba(255,255,255,0.02); }
+.chk { display:inline-flex; align-items:center; gap:8px; font-weight:600; user-select:none; }
+.chk input { width:1rem; height:1rem; }
+
+/* Make modal buttons look like the Activity Log buttons */
+.modal__footer .btn{
+  display:inline-flex; align-items:center; justify-content:center;
+  padding:6px 10px; border-radius:8px;
+  border:1px solid var(--line);
+  background:#0e1013;            /* match your cards */
+  color:#cfd4d8; font-weight:600; font-size:12px;
+  transition:background .15s, border-color .15s, color .15s;
+  cursor:pointer;
+}
+.modal__footer .btn:hover{ background:#11151a; border-color:#2a2f36; }
+.modal__footer .btn:active{ transform:translateY(1px); }
+
+.modal__footer .btn.ghost{
+  background:transparent;
+  border:1px solid var(--line);
+  color:#cfd4d8;
+}
+.modal__footer .btn.danger{
+  border-color:#ef4444; color:#ef4444;
+}
+
+.hidden { display: none !important; }
+.nav-item { display:flex; align-items:center; gap:.5rem; width:100%; padding:.5rem .75rem; background:none; border:0; color: var(--text-600); }
+.nav-item:hover { background: var(--surface-200); }
+.nav-item .nav-icon { color: var(--text-400); }
+
+
+.section { margin-top: 1rem; }
+.grid-3 { display:grid; grid-template-columns: repeat(3, 1fr); gap:.75rem; }
+.card-header { display:flex; align-items:center; justify-content:space-between; }
+
+
+/* pointer cursor consistency */
+#navTrafficReport, #trBack, #trafficReportForm button { cursor: pointer; }
+
+/* Toggle switch wrapper */
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  margin-right: 16px;
+  cursor: pointer;
+  user-select: none;
+}
+
+.toggle input {
+  display: none;
+}
+
+.toggle-slider {
+  width: 36px;
+  height: 18px;
+  background: #333;
+  border-radius: 18px;
+  position: relative;
+  margin-right: 8px;
+  transition: background 0.3s;
+}
+
+.toggle-slider::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: #111;
+  border-radius: 50%;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.3s, background 0.3s;
+}
+
+.toggle input:checked + .toggle-slider {
+  background: #d6a241; /* gold like your screenshot */
+}
+
+.toggle input:checked + .toggle-slider::before {
+  transform: translateX(18px);
+  background: #000;
+}
+
+.toggle-label {
+  font-size: 0.9rem;
+  color: #ddd;
+}
+
+/* Make a control span two right-hand columns in .form-row grids */
+.form-row .span-2 { grid-column: span 2; }
+
+/* Two-column vehicle rows: fixed left, flexible right */
+.vr-row { display:grid; grid-template-columns: 220px 1fr; gap:16px; align-items:center; }
+.vr-right { display:grid; grid-template-columns: 1fr 1fr; gap:16px; }
+.vr-right .span-2 { grid-column: 1 / span 2; }
+
+/* Switch visuals (uses your gold/black look) */
+.switch { display:inline-flex; align-items:center; gap:10px; cursor:pointer; user-select:none; }
+.switch input { display:none; }
+.switch-ui { width:36px; height:18px; background:#333; border-radius:18px; position:relative; transition:background .25s; }
+.switch-ui::before { content:""; position:absolute; top:2px; left:2px; width:14px; height:14px; border-radius:50%; background:#111; transition:transform .25s, background .25s; }
+.switch input:checked + .switch-ui { background:#d6a241; }
+.switch input:checked + .switch-ui::before { transform:translateX(18px); background:#000; }
+.switch-label { color:#ddd; font-size:.92rem; }
+
+/* VEHICLE DETAILS — make controls match the rest of the form */
+#trVehicleSection .vr-row { 
+  display: grid; 
+  grid-template-columns: 220px 1fr; 
+  gap: 16px; 
+  align-items: start;          /* keep fields top-aligned with the toggle */
+}
+
+#trVehicleSection .vr-right { 
+  display: grid; 
+  grid-template-columns: 1fr 1fr; 
+  gap: 16px; 
+}
+
+#trVehicleSection .vr-right .span-2 { grid-column: 1 / span 2; }
+
+/* Ensure labels stack the same way as other sections */
+#trVehicleSection .vr-right label,
+#trVehicleSection .vr-left label { 
+  display: flex; 
+  flex-direction: column; 
+  gap: 6px; 
+  font-weight: 500; 
+}
+
+/* Force inputs/selects to use the same dark styling as elsewhere */
+#trVehicleSection input[type="text"],
+#trVehicleSection select {
+  width: 100%;
+  background: #161616;               /* match your form background tone */
+  color: #e6e6e6;
+  border: 1px solid #2a2a2a;
+  border-radius: 8px;
+  padding: 8px 10px;
+  outline: none;
+}
+
+#trVehicleSection input[type="text"]::placeholder { color: #808080; }
+
+/* Keep select height aligned with text inputs */
+#trVehicleSection select { 
+  height: 36px; 
+  line-height: 36px; 
+}
+
+/* Optional: when a field is disabled, give a subtle muted look */
+#trVehicleSection input:disabled,
+#trVehicleSection select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Inputs & select — consistent look */
+#td-settings-modal .td-body input,
+#td-settings-modal .td-body select {
+  width: 100%;
+  background: #0f1114;
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 10px 12px;
+  height: 44px;
+  font: 14px/1.4 system-ui, -apple-system, Segoe UI, Roboto, Inter, sans-serif;
+  box-sizing: border-box;
+}
+
+#td-settings-modal .td-body input::placeholder {
+  color: #6b7280;
+}
+
+/* Standard spacing above all section headers */
+.section-head {
+  margin-top: 20px;   /* consistent gap before new section */
+}
+.section-head:first-of-type {
+  margin-top: 0;      /* no gap at very top */
+}
+
+/* Ensure each form section has consistent spacing */
+.form-section {
+  margin-top: 20px;
+}
+
+.form-section:first-of-type {
+  margin-top: 0;
+}
+
+/* Divider line under each section header */
+.inline-actions.section-head {
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 4px;   /* give breathing room between text and line */
+  margin-bottom: 12px;   /* space between the line and the inputs below */
+}
+
+/* Center modal dialog */
+.modal {
+  position: fixed;
+  inset: 0;                  /* fill viewport */
+  display: none;             /* hidden by default */
+  justify-content: center;   /* center horizontally */
+  align-items: center;       /* center vertically */
+  background: rgba(0,0,0,.55); /* dim background */
+  z-index: 1000;
+}
+
+.modal[aria-hidden="false"] {
+  display: flex;  /* flexbox centering kicks in */
+}
+
+.modal__dialog {
+  background: var(--panel-2, #1a1c1f);
+  border-radius: 8px;
+  max-width: 600px;
+  width: 100%;
+  margin: 0 16px; /* keep space on small screens */
+  box-shadow: 0 8px 24px rgba(0,0,0,.5);
+}
+/* Base modal covers viewport */
+.modal {
+  position: fixed;
+  inset: 0; 
+  display: none;
+  justify-content: center;
+  align-items: center;
+  background: rgba(0,0,0,.55); /* dim backdrop */
+  z-index: 2000;
+}
+
+/* Show modal when aria-hidden=false */
+.modal[aria-hidden="false"] {
+  display: flex;
+}
+
+/* === Activity Log badges — scaled for 25px icons === */
+.activity-log .log-list .activity-badge{
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+
+  /* square badge box */
+  width: 32px !important;
+  height: 32px !important;
+  min-width: 28px !important;
+  min-height: 28px !important;
+  max-width: 28px !important;
+  max-height: 28px !important;
+  aspect-ratio: 1 / 1 !important;
+
+  flex: 0 0 32px !important;
+  margin-right: 10px !important;
+  padding: 0 !important;
+  box-sizing: content-box !important;
+  overflow: visible !important;
+
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* icon size (your request) */
+.activity-log .log-list .activity-badge__svg{
+  width: 22px !important;
+  height: 22px !important;
+  display: block !important;
+}
+
+/* Type-specific colors (icon only, ring stays neutral) */
+.activity-badge.shift-start   .activity-badge__svg { color:#22c55e; }
+.activity-badge.shift-end     .activity-badge__svg { color:#ef4444; }
+.activity-badge.shift-summary .activity-badge__svg { color:#10b981; }
+.activity-badge.meal          .activity-badge__svg { color:#a855f7; }
+.activity-badge.task          .activity-badge__svg { color:#3b82f6; }
+
+.activity-badge.collision-oic  .activity-badge__svg { color:#3b82f6; transform:scale(1.2); transform-origin: center; }
+.activity-badge.collision-ceic .activity-badge__svg { color:#9ca3af; transform:scale(1.2); transform-origin: center; }
+.activity-badge.collision-fc   .activity-badge__svg { color:#ef4444; transform:scale(1.2); transform-origin: center; }
+.activity-badge.collision-cic  .activity-badge__svg { color:#f59e0b; transform:scale(1.2); transform-origin: center; }
+
+/* === Traffic Report form fields unified style === */
+#trafficStopCard input[type="text"],
+#trafficStopCard input[type="date"],
+#trafficStopCard input[type="time"],
+#trafficStopCard input[type="number"],
+#trafficStopCard select,
+#trafficStopCard textarea {
+  background-color: rgba(255, 255, 255, 0.05);  /* subtle darker bg */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* faint border */
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: #fff; /* text stays readable */
+}
+
+/* Optional: style placeholder text a bit lighter */
+#trafficStopCard input::placeholder,
+#trafficStopCard textarea::placeholder {
+  color: rgba(255,255,255,0.5);
+}
+
+/* === Global form field styling === */
+input[type="text"],
+input[type="date"],
+input[type="time"],
+input[type="number"],
+select,
+textarea {
+  background-color: rgba(255, 255, 255, 0.05);  /* subtle darker bg */
+  border: 1px solid rgba(255, 255, 255, 0.15); /* faint border */
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: #fff;
+  font: inherit;
+}
+
+/* Placeholder text lighter for readability */
+input::placeholder,
+textarea::placeholder {
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* Consistent dark dropdowns */
+select {
+  appearance: none;        /* remove native styling */
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 6px 32px 6px 8px; /* extra right space for custom arrow */
+  color: #fff;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='16' width='16' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+}
+
+/* Make sure ALL form elements get styled, even inside special wrappers */
+input, select, textarea {
+  background-color: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 4px;
+  padding: 6px 8px;
+  color: #fff;
+  font: inherit;
+}
+
+/* Global: unify all form controls */
+input, select, textarea {
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  padding: 8px 10px;
+  color: #e6e6e7;
+  font: inherit;
+}
+
+/* Dropdowns: dark caret + remove native chrome */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 34px;                    /* space for caret */
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='16' width='16' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+}
+
+/* Evidence blocks sometimes aren’t inside .form-row — force textarea styling */
+[id$="_evidence"] textarea,
+.form-section textarea {
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  color: #e6e6e7;
+}
+
+/* Keep datalist suggestion UI intact */
+input[list] {
+  appearance: auto !important;
+  -webkit-appearance: auto !important;
+  background-image: none !important; /* avoid adding a caret to text inputs */
+}
+
+/* Make mixed-height fields align neatly from the top */
+.form-row { align-items: flex-start; }
+
+/* Ensure labels are column-stacked and stretch nicely */
+.form-row > label {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* Comfortable textarea height everywhere (Evidence Content etc.) */
+.form-row textarea,
+[id$="_evidence"] textarea {
+  min-height: 120px;
+}
+
+/* Force the dark style on Department Rank selects in all forms */
+.form-section label select,
+#fc_officer_rank,
+[id$="_officer_rank"] {
+  background-color: rgba(255,255,255,0.05) !important;
+  border: 1px solid rgba(255,255,255,0.15) !important;
+  color: #e6e6e7 !important;
+  border-radius: 8px !important;
+  appearance: none !important;
+  -webkit-appearance: none !important;
+  -moz-appearance: none !important;
+  padding-right: 34px !important;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='16' width='16' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>") !important;
+  background-repeat: no-repeat !important;
+  background-position: right 8px center !important;
+  background-size: 16px !important;
+}
+
+/* Hint the UA to use dark UI for native form popups (Chrome/Edge/Safari/Firefox modern) */
+:root { color-scheme: dark; }
+
+/* Darken the dropdown list pane + items */
+select option,
+select optgroup {
+  background-color: #101215;
+  color: #e6e6e7;
+}
+
+/* Keep the closed control consistent (you already have similar rules) */
+select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  padding-right: 34px;
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='16' width='16' viewBox='0 0 24 24'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  background-size: 16px;
+  background-color: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.15);
+  color: #e6e6e7;
+  border-radius: 8px;
+}
+
+/* Evidence rows: neat alignment + compact content box that can grow */
+[id$="_evidence"] .form-row {
+  display: flex;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+[id$="_evidence"] .form-row > label {
+  flex: 1 1 50%;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* Make textarea look like a single-line input by default, but resizable */
+[id$="_evidence"] textarea {
+  height: 36px;          /* initial height similar to inputs */
+  min-height: 36px;
+  resize: vertical;      /* allow user to drag taller */
+  line-height: 1.2;
+  overflow: auto;
+}
+
+/* === Dashboard layout tweak: make room for Upcoming card === */
+
+/* Your grid already exists; this just tells Quick Hub to be a bit narrower
+   so the new Upcoming card can sit to its right in the same top row. */
+.card.hub-card{
+  grid-column: 1 / span 4;   /* shrink hub width; was taking too many columns */
+}
+
+/* Place Upcoming in the top-right without moving Activity Log */
+.card.upcoming-dash{
+  grid-column: 5 / span 4;   /* rightmost 4 columns in the same row */
+  padding: 44px 16px 16px;   /* match your card padding style */
+}
+
+/* Upcoming card internals (re-use compact list look) */
+.up-body{ display:flex; flex-direction:column; gap:8px; }
+.up-list{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:8px; }
+.up-card{
+  display:flex; justify-content:space-between; align-items:center; gap:10px;
+  padding:8px 10px; border-radius:12px; background:rgba(255,255,255,.04);
+  border:none; outline:none; box-shadow:0 2px 6px rgba(0,0,0,.25);
+}
+.up-left{ min-width:0; }
+.up-title{ font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.up-meta{ font-size:.85rem; opacity:.85; }
+.up-right{ display:flex; align-items:center; gap:8px; }
+.up-badge{ font-size:.75rem; padding:4px 8px; border-radius:999px; border:1px solid rgba(255,255,255,.16); background:rgba(255,255,255,.08); }
+
+/* Optional: stack neatly on smaller screens */
+@media (max-width: 1200px){
+  .card.hub-card, .card.upcoming-dash { grid-column: 1 / span 12; }
+}
+
+.grid { align-items: start; }
+
+/* Cap heights + scroll inner lists for dashboard cards */
+
+/* Upcoming Events card */
+.card.upcoming-dash .up-body {
+  max-height: 300px;    /* adjust value to fit your layout */
+  overflow-y: auto;
+  padding-right: 4px;   /* avoids content under scrollbar */
+}
+
+/* Activity Log card */
+.card.activity-log .log-list {
+  max-height: 400px;    /* adjust for how much you want visible */
+  overflow-y: auto;
+  padding-right: 4px;
+}

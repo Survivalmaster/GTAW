@@ -1,0 +1,348 @@
+/* Scoped to the calendar view so we don't leak styles */
+#calendar-root {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 16px;
+  padding: 16px;
+}
+
+/* Header */
+.cal-head {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.cal-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.cal-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Buttons follow our existing rounded + subtle shadow style */
+.cal-btn {
+  padding: 8px 12px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  cursor: pointer;
+  transition: transform .05s ease, background .2s ease;
+}
+.cal-btn:hover { background: rgba(255,255,255,0.08); }
+.cal-btn:active { transform: translateY(1px); }
+
+/* Main grid + sidebar */
+.cal-grid {
+  background: rgba(255,255,255,0.02);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.25);
+  overflow: hidden;
+}
+
+.cal-upcoming {
+  background: transparent;
+  border-radius: 16px;
+  padding: 12px;
+  height: fit-content;
+  position: sticky;
+  top: 16px;
+}
+
+.cal-upcoming h3 {
+  margin: 0 0 8px 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+/* Month grid */
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 0;
+}
+
+.month-head, .month-cell {
+  border: 1px solid rgba(255,255,255,0.06);
+  min-height: 96px;
+}
+
+.month-head {
+  background: rgba(255,255,255,0.03);
+  padding: 8px;
+  font-size: 0.85rem;
+  font-weight: 600;
+}
+
+.month-cell {
+  padding: 8px;
+  position: relative;
+}
+
+.month-cell .daynum {
+  font-size: 0.8rem;
+  opacity: 0.8;
+}
+
+/* Event pills inside a day cell */
+.event-pill {
+  margin-top: 6px;
+  padding: 4px 8px;
+  font-size: 0.8rem;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.05);
+  cursor: pointer;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Type accents (map to our palette subtly) */
+.type-training { outline: 2px solid rgba(56,189,248,0.35); }  /* cyan-ish */
+.type-operation { outline: 2px solid rgba(249,115,22,0.35); } /* amber/orange */
+.type-other { outline: 2px solid rgba(168,85,247,0.35); }     /* purple */
+
+/* Upcoming list items */
+.up-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 8px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.06);
+  background: rgba(255,255,255,0.03);
+  margin-bottom: 6px;
+}
+.up-item .meta { font-size: 0.8rem; opacity: 0.85; }
+.type-chip {
+  font-size: 0.72rem;
+  padding: 2px 6px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+}
+
+/* Modal (matches our existing popups) */
+.cal-modal {
+  position: fixed; inset: 0;
+  display: none;
+  align-items: center; justify-content: center;
+  background: rgba(0,0,0,0.55);
+  z-index: 1000;
+}
+.cal-modal.open { display: flex; }
+
+.cal-dialog {
+  width: 520px; max-width: 92vw;
+  background: #111418; /* dark card */
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  padding: 16px;
+}
+
+.cal-dialog h3 { margin: 0 0 12px 0; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.form-row + .form-row { margin-top: 8px; }
+.form-row.full { grid-template-columns: 1fr; }
+
+.cal-input, .cal-select, .cal-textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: inherit;
+  padding: 8px 10px;
+}
+
+.cal-textarea { min-height: 84px; resize: vertical; }
+
+.dialog-actions {
+  display: flex; justify-content: space-between; margin-top: 12px;
+}
+.btn-ghost { opacity: 0.85; }
+.btn-danger { border-color: rgba(244,63,94,0.25); outline: 2px solid rgba(244,63,94,0.25); }
+
+#calendar-root[hidden] { display: none !important; }
+
+/* Event dialog layout */
+.cal-dialog {
+  width: 560px;
+  max-width: 92vw;
+  background: #111418;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.45);
+  padding: 16px;
+}
+
+.cal-dialog h3 {
+  margin: 0 0 12px 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
+.evt-grid {
+  display: grid;
+  gap: 10px;
+}
+
+.evt-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  align-items: center;
+}
+
+.evt-row.evt-full {
+  grid-template-columns: 1fr;
+}
+
+.evt-col {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 6px;
+}
+
+.evt-label {
+  font-size: .8rem;
+  opacity: .85;
+}
+
+.evt-align {
+  grid-template-columns: auto auto;
+  gap: 10px;
+}
+
+.cal-input,
+.cal-select,
+.cal-textarea {
+  width: 100%;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: inherit;
+  padding: 8px 10px;
+}
+
+.cal-textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+/* Footer actions */
+.dialog-actions {
+  margin-top: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.dialog-actions-right {
+  display: flex;
+  gap: 8px;
+}
+
+/* Keep your button styling intact */
+.cal-btn { padding: 8px 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,.08); background: rgba(255,255,255,.04); cursor: pointer; }
+.btn-ghost { opacity: .9; }
+.btn-danger { border-color: rgba(244,63,94,.25); outline: 2px solid rgba(244,63,94,.25); }
+
+/* Upcoming panel layout */
+.up-filters { margin-bottom: 8px; display: flex; gap: 8px; flex-wrap: wrap; }
+.type-chip { padding: 6px 10px; border-radius: 999px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.06); font-size: .82rem; }
+.type-chip.is-muted { opacity: .55; }
+
+/* Pretty list items */
+.up-list { display: flex; flex-direction: column; gap: 8px; }
+.up-empty { padding: 10px; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; background: rgba(255,255,255,.03); }
+
+.up-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 12px;
+  border: none;                 /* removed */
+  border-radius: 14px;
+  background: rgba(255,255,255,.04);
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+
+.up-card:hover { background: rgba(255,255,255,.05); }
+
+.up-left { min-width: 0; }
+.up-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.up-meta  { font-size: .85rem; opacity: .85; }
+
+.up-right { display: flex; align-items: center; gap: 8px; }
+.up-badge {
+  font-size: .75rem; padding: 4px 8px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.08);
+}
+
+/* Remove type accent outlines */
+.type-training .up-card,
+.type-operation .up-card,
+.type-other .up-card {
+  outline: none;
+}
+
+/* Open button in list */
+.up-open { padding: 6px 10px; }
+
+/* Remove coloured outline from each upcoming event card */
+.up-card { 
+  border: none !important;
+  outline: none !important;
+}
+
+/* In case the accent was applied on the typed class combo */
+.up-card.type-training,
+.up-card.type-operation,
+.up-card.type-other {
+  outline: none !important;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25) !important; /* keep neutral shadow */
+}
+
+/* If you also added a generic type outline somewhere */
+.type-training.up-card,
+.type-operation.up-card,
+.type-other.up-card {
+  outline: none !important;
+}
+
+/* Dashboard Upcoming card tweaks (card chrome already provided by .card/.head) */
+.up-body { display: flex; flex-direction: column; gap: 8px; }
+
+/* Reuse the calendar’s pretty list styles */
+.up-list { display: flex; flex-direction: column; gap: 8px; margin: 0; padding: 0; list-style: none; }
+
+/* Make list items look like small chips/cards on the dashboard as well */
+.up-card {
+  display: flex; align-items: center; justify-content: space-between;
+  gap: 10px; padding: 10px 12px; border-radius: 14px;
+  background: rgba(255,255,255,.04);
+  border: none;              /* no border */
+  outline: none;             /* no coloured outline */
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+.up-left  { min-width: 0; }
+.up-title { font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.up-meta  { font-size: .85rem; opacity: .85; }
+.up-right { display: flex; align-items: center; gap: 8px; }
+
+/* Keep the small type badge */
+.up-badge { font-size: .75rem; padding: 4px 8px; border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.16); background: rgba(255,255,255,.08);
+}

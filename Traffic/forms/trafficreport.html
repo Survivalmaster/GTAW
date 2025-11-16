@@ -1,0 +1,53 @@
+<div id="trafficStopCard" class="card">
+<div class="card-header">
+<h3>Traffic Report</h3>
+<button type="button" id="tsBack" class="btn btn-secondary" onclick="closeForm()">Back</button>
+</div>
+<div class="card-body">
+
+
+<!-- SECTION: General Information -->
+<fieldset class="section">
+<legend>General Information</legend>
+<div class="grid-3">
+<div>
+<label for="trDate">Date</label>
+<input type="text" id="trDate" required />
+</div>
+<div>
+<label for="trTimeUTC">Time (UTC)</label>
+<input type="text" id="trTimeUTC" required />
+</div>
+<div>
+<label for="trCallsign">Callsign</label>
+<input type="text" id="trCallsign" required />
+</div>
+</div>
+</fieldset>
+
+
+<!-- SECTION: Officer Section -->
+<fieldset class="section">
+<legend>Officer Section</legend>
+<div class="grid-3">
+<div>
+<label for="trOfficerName">Full Name</label>
+<input type="text" id="trOfficerName" required />
+</div>
+<div>
+<label for="trOfficerRank">Rank</label>
+<input type="text" id="trOfficerRank" required />
+</div>
+<div>
+<label for="trOfficerSerial">Serial Number</label>
+<input type="text" id="trOfficerSerial" required />
+</div>
+</div>
+</fieldset>
+
+
+<div class="actions">
+<button type="submit" class="btn btn-success">Save (Stub)</button>
+</div>
+</div>
+</div>
