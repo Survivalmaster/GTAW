@@ -20,113 +20,104 @@
         </button>
       </header>
 
-      <!-- NAVIGATION -->
-      <nav class="nav">
-        <!-- mini search -->
-        <div class="nav-search">
-          <svg viewBox="0 0 24 24" class="icon">
-            <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
-          </svg>
-          <input type="search" class="nav-search__input" placeholder="Search tools…" aria-label="Search navigation" />
+      <!-- NAV -->
+      <nav class="rail">
+        <!-- Search -->
+        <div class="rail-search">
+          <svg viewBox="0 0 24 24" class="icon"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+          <input type="search" class="rail-search__input" placeholder="Search…" aria-label="Search navigation">
         </div>
 
-        <!-- Section: Generators -->
-        <section class="nav-section" data-group="generators" aria-expanded="true">
-          <button class="nav-section__toggle js-accordion" aria-expanded="true" data-tooltip="Generators">
-            <div class="nav-section__label">
-              <svg viewBox="0 0 24 24" class="icon"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-              <span>Generators</span>
-            </div>
-            <svg viewBox="0 0 24 24" class="icon chevron"><path d="M8 10l4 4 4-4"/></svg>
-          </button>
-          <div class="nav-list" role="group">
-            <button class="nav-item is-active" data-tooltip="Tint Exception">
-              <span class="nav-item__indicator"></span>
+        <!-- Section -->
+        <div class="rail-section" data-group="generators">
+          <div class="rail-section__head">
+            <span class="rail-section__title">GENERATORS</span>
+            <button class="rail-section__toggle js-accordion" aria-expanded="true" data-tooltip="Toggle Generators">
+              <svg viewBox="0 0 24 24" class="icon chevron"><path d="M8 10l4 4 4-4"/></svg>
+            </button>
+          </div>
+          <div class="rail-list" role="group">
+            <button class="rail-item is-active" data-tooltip="Tint Exception">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M6 3h12l1 4H5l1-4zM5 7h14v11a3 3 0 01-3 3H8a3 3 0 01-3-3V7z"/></svg>
-              <span class="nav-item__label">Tint Exception</span>
-              <span class="badge">New</span>
+              <span class="rail-item__label">Tint Exception</span>
+              <span class="pill">NEW</span>
             </button>
-
-            <button class="nav-item" data-tooltip="Parking Notice">
-              <span class="nav-item__indicator"></span>
+            <button class="rail-item" data-tooltip="Parking Notice">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M7 4h6a4 4 0 010 8H7v8H5V4h2zm2 2v6h4a3 3 0 000-6H9z"/></svg>
-              <span class="nav-item__label">Parking Notice</span>
+              <span class="rail-item__label">Parking Notice</span>
             </button>
-
-            <button class="nav-item" data-tooltip="Tow Request">
-              <span class="nav-item__indicator"></span>
+            <button class="rail-item" data-tooltip="Tow Request">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M3 13h3l3-3h4l3 3h2a3 3 0 110 6h-1a2 2 0 01-4 0H9a2 2 0 01-4 0H4a3 3 0 110-6z"/></svg>
-              <span class="nav-item__label">Tow Request</span>
+              <span class="rail-item__label">Tow Request</span>
             </button>
-
-            <button class="nav-item" data-tooltip="Traffic Stop Report">
-              <span class="nav-item__indicator"></span>
+            <button class="rail-item" data-tooltip="Traffic Stop Report">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M4 6h16M4 12h10M4 18h8"/></svg>
-              <span class="nav-item__label">Traffic Stop Report</span>
+              <span class="rail-item__label">Traffic Stop Report</span>
             </button>
-
-            <button class="nav-item" data-tooltip="Accident Form">
-              <span class="nav-item__indicator"></span>
+            <button class="rail-item" data-tooltip="Accident Form">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M4 19l4-10 4 6 3-4 5 8H4z"/></svg>
-              <span class="nav-item__label">Accident Form</span>
+              <span class="rail-item__label">Accident Form</span>
             </button>
-
-            <button class="nav-item" data-tooltip="Citation Template">
-              <span class="nav-item__indicator"></span>
+            <button class="rail-item" data-tooltip="Citation Template">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M6 2h9l3 3v15a2 2 0 01-2 2H6zM15 2v4h4"/></svg>
-              <span class="nav-item__label">Citation Template</span>
+              <span class="rail-item__label">Citation Template</span>
             </button>
           </div>
-        </section>
+        </div>
 
-        <!-- Section: Templates -->
-        <section class="nav-section" data-group="templates" aria-expanded="false">
-          <button class="nav-section__toggle js-accordion" aria-expanded="false" data-tooltip="Templates">
-            <div class="nav-section__label">
-              <svg viewBox="0 0 24 24" class="icon"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-              <span>Templates</span>
-            </div>
-            <svg viewBox="0 0 24 24" class="icon chevron"><path d="M8 10l4 4 4-4"/></svg>
-          </button>
-          <div class="nav-list" role="group" hidden>
-            <button class="nav-item" data-tooltip="Impound Notice">
-              <span class="nav-item__indicator"></span>
+        <!-- Section -->
+        <div class="rail-section" data-group="templates">
+          <div class="rail-section__head">
+            <span class="rail-section__title">TEMPLATES</span>
+            <button class="rail-section__toggle js-accordion" aria-expanded="false" data-tooltip="Toggle Templates">
+              <svg viewBox="0 0 24 24" class="icon chevron"><path d="M8 10l4 4 4-4"/></svg>
+            </button>
+          </div>
+          <div class="rail-list" role="group" hidden>
+            <button class="rail-item" data-tooltip="Impound Notice">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M4 7h16v12H4zM2 7h20M8 7V5h8v2"/></svg>
-              <span class="nav-item__label">Impound Notice</span>
+              <span class="rail-item__label">Impound Notice</span>
             </button>
-            <button class="nav-item" data-tooltip="Vehicle Release">
-              <span class="nav-item__indicator"></span>
+            <button class="rail-item" data-tooltip="Vehicle Release">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M4 17h16M6 13h12M8 9h8M10 5h4"/></svg>
-              <span class="nav-item__label">Vehicle Release</span>
+              <span class="rail-item__label">Vehicle Release</span>
             </button>
-            <button class="nav-item" data-tooltip="Equipment Checkout">
-              <span class="nav-item__indicator"></span>
+            <button class="rail-item" data-tooltip="Equipment Checkout">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M6 4h12v6H6zM4 12h16v8H4z"/></svg>
-              <span class="nav-item__label">Equipment Checkout</span>
+              <span class="rail-item__label">Equipment Checkout</span>
             </button>
-            <button class="nav-item" data-tooltip="Supervisor Review">
-              <span class="nav-item__indicator"></span>
+            <button class="rail-item" data-tooltip="Supervisor Review">
+              <span class="rail-item__dot"></span>
               <svg viewBox="0 0 24 24" class="icon"><path d="M8 7a4 4 0 118 0 4 4 0 01-8 0zM3 21a7 7 0 0118 0"/></svg>
-              <span class="nav-item__label">Supervisor Review</span>
+              <span class="rail-item__label">Supervisor Review</span>
             </button>
           </div>
-        </section>
+        </div>
 
-        <!-- Shortcuts -->
-        <div class="nav-divider"></div>
-        <div class="nav-shortcuts">
-          <button class="nav-shortcut" data-tooltip="Quick Actions">
+        <!-- Quick actions -->
+        <div class="rail-divider"></div>
+        <div class="rail-shortcuts">
+          <button class="rail-shortcut" data-tooltip="Quick Actions">
             <svg viewBox="0 0 24 24" class="icon"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
             <span>Quick Actions</span>
           </button>
-          <button class="nav-shortcut" data-tooltip="Dashboard">
+          <button class="rail-shortcut" data-tooltip="Dashboard">
             <svg viewBox="0 0 24 24" class="icon"><path d="M3 13h8V3H3v10zm10 8h8V3h-8v18zM3 21h8v-6H3v6z"/></svg>
             <span>Dashboard</span>
           </button>
         </div>
 
         <!-- Settings -->
-        <button class="nav-settings" data-tooltip="Settings">
+        <button class="rail-settings" data-tooltip="Settings">
           <svg viewBox="0 0 24 24" class="icon">
             <path d="M12 8a4 4 0 100 8 4 4 0 000-8zm9 4a7.9 7.9 0 01-.1 1l2.1 1.6-2 3.5-2.5-1a8.2 8.2 0 01-1.7 1l-.4 2.7H9.6l-.4-2.7a8.2 8.2 0 01-1.7-1l-2.5 1-2-3.5 2.1-1.6a7.9 7.9 0 010-2L.9 10.4l2-3.5 2.5 1a8.2 8.2 0 011.7-1l.4-2.7h4.8l.4 2.7a8.2 8.2 0 011.7 1l2.5-1 2 3.5-2.1 1.6c.1.3.1.7.1 1z"/>
           </svg>
@@ -134,7 +125,7 @@
         </button>
       </nav>
 
-      <!-- User card -->
+      <!-- User card (unchanged) -->
       <footer class="user-card">
         <img class="user-card__avatar" src="https://placehold.co/64x64" alt="User avatar" />
         <div class="user-card__meta">
