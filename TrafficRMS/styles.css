@@ -68,6 +68,9 @@ body{
 .icon-btn:hover{ background: rgba(255,255,255,.05) }
 
 /* RAIL NAV */
+/* keep shortcuts' icons small */
+.rail-shortcut .icon { width:16px; height:16px; }
+
 .rail{ padding:12px; overflow:auto; scrollbar-width:thin; scrollbar-color:var(--line) transparent; }
 .rail::-webkit-scrollbar{ width:10px } 
 .rail::-webkit-scrollbar-thumb{ background:var(--line); border-radius:8px }
