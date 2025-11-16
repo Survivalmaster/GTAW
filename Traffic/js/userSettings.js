@@ -17,9 +17,9 @@
   const STYLE_ID = 'td-settings-styles';
 
   const RANKS = [
-    'Probationary Officer', 'Police Officer I', 'Police Officer II', 'Police Officer III',
-    'Senior Lead Officer', 'Sergeant I', 'Sergeant II', 'Lieutenant I', 'Lieutenant II',
-    'Captain', 'Commander', 'Deputy Chief', 'Assistant Chief', 'Chief of Police'
+    'Police Officer I', 'Police Officer II', 'Police Officer III',
+    'Police Officer III+1', 'Sergeant I', 'Sergeant II', 'Lieutenant I', 'Lieutenant II',
+    'Captain'
   ];
 
   const state = {
