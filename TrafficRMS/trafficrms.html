@@ -1,0 +1,283 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>LSPD Traffic RMS — Main</title>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'/%3E">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Sidebar -->
+    <aside class="sidebar" aria-label="Primary">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">🚔</div>
+        <div class="brand-text">
+          <span class="dept">LSPD</span>
+          <span class="suite">Traffic RMS</span>
+        </div>
+      </div>
+
+      <nav class="nav">
+        <button class="nav-item active" data-route="dashboard" aria-current="page">
+          <span class="icon">🏠</span><span>Dashboard</span>
+        </button>
+
+        <div class="nav-section-label">Create</div>
+        <button class="nav-item" data-open-modal="collision">
+          <span class="icon">🛠️</span><span>Traffic Collision (Case)</span>
+        </button>
+        <button class="nav-item" data-open-modal="tstop">
+          <span class="icon">📝</span><span>Traffic Stop Report</span>
+        </button>
+        <button class="nav-item" data-open-modal="citation">
+          <span class="icon">📄</span><span>Citation</span>
+        </button>
+        <button class="nav-item" data-open-modal="dui">
+          <span class="icon">🍺</span><span>DUI Report</span>
+        </button>
+
+        <div class="nav-section-label">Browse</div>
+        <button class="nav-item" data-route="cases">
+          <span class="icon">📁</span><span>Cases</span>
+        </button>
+        <button class="nav-item" data-route="reports">
+          <span class="icon">🗂️</span><span>Reports</span>
+        </button>
+        <button class="nav-item" data-route="search">
+          <span class="icon">🔎</span><span>Search</span>
+        </button>
+      </nav>
+
+      <div class="sidebar-footer">
+        <button class="nav-item subtle" id="toggleTheme">
+          <span class="icon">🌓</span><span>Toggle Theme</span>
+        </button>
+        <div class="build">Build: TD-1.0</div>
+      </div>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <!-- Topbar -->
+      <header class="topbar">
+        <h1 class="view-title" id="viewTitle">Dashboard</h1>
+        <div class="topbar-actions">
+          <input id="quickSearch" class="input" type="search" placeholder="Quick search (Name, Plate, Case ID)" aria-label="Quick search">
+          <button class="btn primary" data-open-modal="collision">+ New Collision (Case)</button>
+        </div>
+      </header>
+
+      <!-- Content router outlet -->
+      <section id="view" class="view">
+        <!-- Dashboard (default) -->
+        <div data-view="dashboard" class="route active">
+          <div class="grid">
+            <div class="card kpi">
+              <div class="kpi-label">Open Cases</div>
+              <div class="kpi-value" id="kpiOpenCases">0</div>
+            </div>
+            <div class="card kpi">
+              <div class="kpi-label">Reports (24h)</div>
+              <div class="kpi-value" id="kpiReports24h">0</div>
+            </div>
+            <div class="card kpi">
+              <div class="kpi-label">Pending Follow-ups</div>
+              <div class="kpi-value" id="kpiFollowups">0</div>
+            </div>
+          </div>
+
+          <div class="card">
+            <div class="card-header">
+              <h2>Recent Activity</h2>
+              <button class="btn subtle" data-route="cases">View all</button>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="recentTable" aria-label="Recent activity">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>ID</th>
+                    <th>Title</th>
+                    <th>Officer</th>
+                    <th>Status</th>
+                    <th>Created</th>
+                  </tr>
+                </thead>
+                <tbody><!-- filled by JS --></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Cases -->
+        <div data-view="cases" class="route">
+          <div class="card">
+            <div class="card-header">
+              <h2>Cases</h2>
+              <div class="cluster">
+                <select id="caseFilter" class="input">
+                  <option value="">All statuses</option>
+                  <option value="Open">Open</option>
+                  <option value="Pending Follow-up">Pending Follow-up</option>
+                  <option value="Closed">Closed</option>
+                </select>
+                <button class="btn" data-open-modal="collision">+ New Case (Collision)</button>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="casesTable" aria-label="Cases">
+                <thead>
+                  <tr>
+                    <th>Case ID</th>
+                    <th>Primary Report</th>
+                    <th>Officer</th>
+                    <th>Status</th>
+                    <th>Involved Parties</th>
+                    <th>Created</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody><!-- filled by JS --></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Reports -->
+        <div data-view="reports" class="route">
+          <div class="card">
+            <div class="card-header">
+              <h2>Reports</h2>
+              <div class="cluster">
+                <select id="reportTypeFilter" class="input">
+                  <option value="">All types</option>
+                  <option value="Traffic Collision">Traffic Collision</option>
+                  <option value="Traffic Stop">Traffic Stop</option>
+                  <option value="Citation">Citation</option>
+                  <option value="DUI">DUI</option>
+                </select>
+              </div>
+            </div>
+            <div class="table-wrap">
+              <table class="table" id="reportsTable" aria-label="Reports">
+                <thead>
+                  <tr>
+                    <th>Type</th>
+                    <th>Report ID</th>
+                    <th>Case</th>
+                    <th>Officer</th>
+                    <th>Subject / Plate</th>
+                    <th>Created</th>
+                  </tr>
+                </thead>
+                <tbody><!-- filled by JS --></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- Search -->
+        <div data-view="search" class="route">
+          <div class="card">
+            <div class="card-header">
+              <h2>Search</h2>
+            </div>
+            <form class="grid" id="advSearchForm">
+              <input class="input" name="q" placeholder="Name / Plate / Case / Report" />
+              <select class="input" name="type">
+                <option value="">Any Type</option>
+                <option>Traffic Collision</option>
+                <option>Traffic Stop</option>
+                <option>Citation</option>
+                <option>DUI</option>
+              </select>
+              <select class="input" name="status">
+                <option value="">Any Status</option>
+                <option>Open</option>
+                <option>Pending Follow-up</option>
+                <option>Closed</option>
+              </select>
+              <button class="btn">Search</button>
+            </form>
+            <div class="table-wrap">
+              <table class="table" id="searchTable" aria-label="Search results">
+                <thead>
+                  <tr>
+                    <th>Type</th><th>ID</th><th>Title</th><th>Officer</th><th>Status</th><th>Created</th>
+                  </tr>
+                </thead>
+                <tbody><!-- filled by JS --></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <!-- Modals -->
+  <dialog id="modal-collision" class="modal">
+    <form method="dialog" class="modal-card" id="formCollision">
+      <header class="modal-header">
+        <h3>New Traffic Collision — Creates Case</h3>
+      </header>
+      <div class="modal-body grid">
+        <input class="input" name="officer" placeholder="Officer Name / Badge" required />
+        <input class="input" name="location" placeholder="Location" required />
+        <input class="input" name="plateA" placeholder="Vehicle Plate A (if any)" />
+        <input class="input" name="plateB" placeholder="Vehicle Plate B (if any)" />
+        <textarea class="input" name="summary" placeholder="Summary" rows="3" required></textarea>
+        <label class="checkbox">
+          <input type="checkbox" name="needsFollowup" />
+          <span>Mark Case as “Pending Follow-up”</span>
+        </label>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn" value="cancel">Cancel</button>
+        <button class="btn primary" value="submit">Create Case</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog id="modal-tstop" class="modal">
+    <form method="dialog" class="modal-card" id="formTStop">
+      <header class="modal-header">
+        <h3>New Traffic Stop Report</h3>
+      </header>
+      <div class="modal-body grid">
+        <input class="input" name="officer" placeholder="Officer Name / Badge" required />
+        <input class="input" name="plate" placeholder="Plate" required />
+        <input class="input" name="reason" placeholder="Stop Reason" required />
+        <textarea class="input" name="notes" placeholder="Notes" rows="3"></textarea>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn" value="cancel">Cancel</button>
+        <button class="btn primary" value="submit">Save Report</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <dialog id="modal-generic" class="modal">
+    <form method="dialog" class="modal-card" id="formGeneric">
+      <header class="modal-header">
+        <h3 id="genericTitle">New Report</h3>
+      </header>
+      <div class="modal-body grid">
+        <input class="input" name="officer" placeholder="Officer Name / Badge" required />
+        <input class="input" name="subject" placeholder="Subject / Plate" required />
+        <textarea class="input" name="notes" placeholder="Notes" rows="3"></textarea>
+      </div>
+      <footer class="modal-footer">
+        <button class="btn" value="cancel">Cancel</button>
+        <button class="btn primary" value="submit">Save</button>
+      </footer>
+    </form>
+  </dialog>
+
+  <script src="app.js"></script>
+</body>
+</html>
