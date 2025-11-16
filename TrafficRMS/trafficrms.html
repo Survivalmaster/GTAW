@@ -11,67 +11,126 @@
     <!-- Sidebar -->
     <aside class="sidebar" data-collapsed="false">
       <header class="sidebar__header">
-        <div class="brand">
+        <div class="brand" aria-label="Traffic Division">
           <span class="brand__logo" aria-hidden="true">🚦</span>
           <span class="brand__text">Traffic Division</span>
         </div>
         <button class="icon-btn js-toggle-sidebar" aria-label="Collapse sidebar" title="Collapse sidebar">
-          <!-- chevron icon -->
           <svg viewBox="0 0 24 24" class="icon"><path d="M9 6l6 6-6 6"/></svg>
         </button>
       </header>
 
+      <!-- NAVIGATION -->
       <nav class="nav">
-        <!-- Group: Generators -->
-        <section class="nav-group" data-group="generators">
-          <button class="nav-group__toggle js-accordion" aria-expanded="true">
-            <svg viewBox="0 0 24 24" class="icon"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-            <span>Generators</span>
+        <!-- mini search -->
+        <div class="nav-search">
+          <svg viewBox="0 0 24 24" class="icon">
+            <circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/>
+          </svg>
+          <input type="search" class="nav-search__input" placeholder="Search tools…" aria-label="Search navigation" />
+        </div>
+
+        <!-- Section: Generators -->
+        <section class="nav-section" data-group="generators" aria-expanded="true">
+          <button class="nav-section__toggle js-accordion" aria-expanded="true" data-tooltip="Generators">
+            <div class="nav-section__label">
+              <svg viewBox="0 0 24 24" class="icon"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+              <span>Generators</span>
+            </div>
             <svg viewBox="0 0 24 24" class="icon chevron"><path d="M8 10l4 4 4-4"/></svg>
           </button>
-          <div class="nav-group__body">
-            <button class="nav-btn">Tint Exception</button>
-            <button class="nav-btn">Parking Notice</button>
-            <button class="nav-btn">Tow Request</button>
-            <button class="nav-btn">Traffic Stop Report</button>
-            <button class="nav-btn">Accident Form</button>
-            <button class="nav-btn">Citation Template</button>
+          <div class="nav-list" role="group">
+            <button class="nav-item is-active" data-tooltip="Tint Exception">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M6 3h12l1 4H5l1-4zM5 7h14v11a3 3 0 01-3 3H8a3 3 0 01-3-3V7z"/></svg>
+              <span class="nav-item__label">Tint Exception</span>
+              <span class="badge">New</span>
+            </button>
+
+            <button class="nav-item" data-tooltip="Parking Notice">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M7 4h6a4 4 0 010 8H7v8H5V4h2zm2 2v6h4a3 3 0 000-6H9z"/></svg>
+              <span class="nav-item__label">Parking Notice</span>
+            </button>
+
+            <button class="nav-item" data-tooltip="Tow Request">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M3 13h3l3-3h4l3 3h2a3 3 0 110 6h-1a2 2 0 01-4 0H9a2 2 0 01-4 0H4a3 3 0 110-6z"/></svg>
+              <span class="nav-item__label">Tow Request</span>
+            </button>
+
+            <button class="nav-item" data-tooltip="Traffic Stop Report">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M4 6h16M4 12h10M4 18h8"/></svg>
+              <span class="nav-item__label">Traffic Stop Report</span>
+            </button>
+
+            <button class="nav-item" data-tooltip="Accident Form">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M4 19l4-10 4 6 3-4 5 8H4z"/></svg>
+              <span class="nav-item__label">Accident Form</span>
+            </button>
+
+            <button class="nav-item" data-tooltip="Citation Template">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M6 2h9l3 3v15a2 2 0 01-2 2H6zM15 2v4h4"/></svg>
+              <span class="nav-item__label">Citation Template</span>
+            </button>
           </div>
         </section>
 
-        <!-- Group: Templates -->
-        <section class="nav-group" data-group="templates">
-          <button class="nav-group__toggle js-accordion" aria-expanded="false">
-            <svg viewBox="0 0 24 24" class="icon"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
-            <span>Templates</span>
+        <!-- Section: Templates -->
+        <section class="nav-section" data-group="templates" aria-expanded="false">
+          <button class="nav-section__toggle js-accordion" aria-expanded="false" data-tooltip="Templates">
+            <div class="nav-section__label">
+              <svg viewBox="0 0 24 24" class="icon"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+              <span>Templates</span>
+            </div>
             <svg viewBox="0 0 24 24" class="icon chevron"><path d="M8 10l4 4 4-4"/></svg>
           </button>
-          <div class="nav-group__body" hidden>
-            <button class="nav-btn">Impound Notice</button>
-            <button class="nav-btn">Vehicle Release</button>
-            <button class="nav-btn">Equipment Checkout</button>
-            <button class="nav-btn">Supervisor Review</button>
+          <div class="nav-list" role="group" hidden>
+            <button class="nav-item" data-tooltip="Impound Notice">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M4 7h16v12H4zM2 7h20M8 7V5h8v2"/></svg>
+              <span class="nav-item__label">Impound Notice</span>
+            </button>
+            <button class="nav-item" data-tooltip="Vehicle Release">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M4 17h16M6 13h12M8 9h8M10 5h4"/></svg>
+              <span class="nav-item__label">Vehicle Release</span>
+            </button>
+            <button class="nav-item" data-tooltip="Equipment Checkout">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M6 4h12v6H6zM4 12h16v8H4z"/></svg>
+              <span class="nav-item__label">Equipment Checkout</span>
+            </button>
+            <button class="nav-item" data-tooltip="Supervisor Review">
+              <span class="nav-item__indicator"></span>
+              <svg viewBox="0 0 24 24" class="icon"><path d="M8 7a4 4 0 118 0 4 4 0 01-8 0zM3 21a7 7 0 0118 0"/></svg>
+              <span class="nav-item__label">Supervisor Review</span>
+            </button>
           </div>
         </section>
 
-        <!-- Standalone buttons -->
-        <div class="nav-standalone">
-          <button class="nav-btn">
+        <!-- Shortcuts -->
+        <div class="nav-divider"></div>
+        <div class="nav-shortcuts">
+          <button class="nav-shortcut" data-tooltip="Quick Actions">
             <svg viewBox="0 0 24 24" class="icon"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
-            Quick Actions
+            <span>Quick Actions</span>
           </button>
-          <button class="nav-btn">
-            <svg viewBox="0 0 24 24" class="icon"><path d="M12 2v4M12 18v4M4 12H0M24 12h-4M4.93 4.93l-2.83-2.83M21.9 21.9l-2.83-2.83M19.07 4.93l2.83-2.83M2.1 21.9l2.83-2.83"/></svg>
-            Dashboard
+          <button class="nav-shortcut" data-tooltip="Dashboard">
+            <svg viewBox="0 0 24 24" class="icon"><path d="M3 13h8V3H3v10zm10 8h8V3h-8v18zM3 21h8v-6H3v6z"/></svg>
+            <span>Dashboard</span>
           </button>
         </div>
 
         <!-- Settings -->
-        <button class="nav-btn nav-btn--settings">
+        <button class="nav-settings" data-tooltip="Settings">
           <svg viewBox="0 0 24 24" class="icon">
             <path d="M12 8a4 4 0 100 8 4 4 0 000-8zm9 4a7.9 7.9 0 01-.1 1l2.1 1.6-2 3.5-2.5-1a8.2 8.2 0 01-1.7 1l-.4 2.7H9.6l-.4-2.7a8.2 8.2 0 01-1.7-1l-2.5 1-2-3.5 2.1-1.6a7.9 7.9 0 010-2L.9 10.4l2-3.5 2.5 1a8.2 8.2 0 011.7-1l.4-2.7h4.8l.4 2.7a8.2 8.2 0 011.7 1l2.5-1 2 3.5-2.1 1.6c.1.3.1.7.1 1z"/>
           </svg>
-          Settings
+          <span>Settings</span>
         </button>
       </nav>
 
@@ -96,8 +155,8 @@
 
       <section class="content">
         <div class="welcome">
-          <h2>Welcome</h2>
-          <p>Select a generator from the left to begin. Forms will appear here with clean fields that export to BBCode.</p>
+          <h2>Tint Exception</h2>
+          <p>This is a placeholder. The "Tint Exception" form will appear here and export clean BBCode.</p>
           <div class="placeholder-grid">
             <div class="card">Recent: Tint Exception</div>
             <div class="card">Pinned: Accident Form</div>
