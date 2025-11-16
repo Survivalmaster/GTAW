@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Operations Launchpad</title>
-  <meta name="description" content="Quick access to Traffic and FTP tools." />
+  <title>Tools Portal</title>
+  <meta name="description" content="Access Traffic and FTP modules quickly and securely." />
   <style>
     :root{
       --bg-start:#0e1117;
@@ -35,13 +35,12 @@
     html,body{height:100%}
     body{
       margin:0;
-      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Noto Sans", "Apple Color Emoji","Segoe UI Emoji", "Segoe UI Symbol";
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial;
       color:var(--text);
       background: linear-gradient(145deg, var(--bg-start), var(--bg-end));
       display:flex; align-items:center; justify-content:center;
     }
 
-    /* Subtle background shapes */
     .bg-orb, .bg-orb-2{
       position:fixed; inset:auto; pointer-events:none; filter: blur(60px); opacity:.35;
       width:420px; height:420px; border-radius:999px; transform:translate(-40%,-40%);
@@ -56,23 +55,8 @@
       padding:28px;
     }
 
-    .nav{
-      display:flex; align-items:center; justify-content:space-between;
-      margin-bottom:28px;
-    }
-    .brand{
-      display:flex; gap:12px; align-items:center;
-      font-weight:700; letter-spacing:.2px; font-size:18px;
-      color:var(--text); text-decoration:none;
-    }
-    .brand-badge{
-      width:36px; height:36px; border-radius:10px;
-      background:linear-gradient(135deg,var(--accent),var(--accent-2));
-      display:grid; place-items:center; box-shadow: var(--shadow);
-      color:white; font-weight:900;
-    }
     .titlebar{
-      text-align:center; margin: 16px 0 28px;
+      text-align:center; margin: 0 0 28px;
     }
     h1{
       margin:0 0 8px; font-size: clamp(24px, 3.2vw, 34px);
@@ -121,11 +105,10 @@
     .card:hover .cta{ background: var(--text); color: #0b1020; transform: translateX(2px); }
 
     footer{
-      margin-top:28px; text-align:center; color:var(--muted); font-size:12px;
+      margin-top:28px; text-align:center; color:var(--muted); font-size:13px;
       opacity:.9;
     }
 
-    /* Reduce motion if requested */
     @media (prefers-reduced-motion: reduce){
       .card, .cta{ transition: none; }
     }
@@ -136,13 +119,6 @@
   <div class="bg-orb-2" aria-hidden="true"></div>
 
   <main class="shell" role="main">
-    <header class="nav" aria-label="Top bar">
-      <a class="brand" href="#" aria-label="Home">
-        <span class="brand-badge" aria-hidden="true">OP</span>
-        <span>Operations Launchpad</span>
-      </a>
-    </header>
-
     <section class="titlebar">
       <h1>Welcome</h1>
       <p class="subtitle">Select a module to continue.</p>
@@ -153,17 +129,17 @@
       <article class="card">
         <div class="info">
           <div class="icon" aria-hidden="true">
-            <!-- Road/traffic icon -->
+            <!-- Road icon -->
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
               <path d="M8 22l2-6h4l2 6M10 16l4-12M6 10h12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
           </div>
           <div class="text">
             <h3>Traffic</h3>
-            <p>Access traffic tools, configs, and workflows.</p>
+            <p>Generate TCI's & Traffic Report</p>
           </div>
         </div>
-        <a class="cta" href="Traffic/traffic.html" aria-label="Open Traffic tools">Open</a>
+        <a class="cta" href="Traffic/traffic.html">Open</a>
       </article>
 
       <!-- FTP -->
@@ -178,21 +154,16 @@
           </div>
           <div class="text">
             <h3>FTP</h3>
-            <p>Upload, retrieve, and manage files securely.</p>
+            <p>Generate FTP Reports</p>
           </div>
         </div>
-        <a class="cta" href="FTP/ftp.html" aria-label="Open FTP tools">Open</a>
+        <a class="cta" href="FTP/ftp.html">Open</a>
       </article>
     </section>
 
     <footer>
-      <span>© <span id="yr"></span> Operations Launchpad</span>
+      Made with ❤️ by <strong>Survivalmaster</strong>
     </footer>
   </main>
-
-  <script>
-    // Set current year in footer (no external deps)
-    document.getElementById('yr').textContent = new Date().getFullYear();
-  </script>
 </body>
 </html>
