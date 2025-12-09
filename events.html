@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <title>Events Portal - Dashboard</title>
+  <title>Events Portal - Events</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
   <link rel="icon" type="image/png" href="assets/favicon.png">
@@ -20,6 +20,7 @@
   />
 
   <link rel="stylesheet" href="styles.css" />
+  <link rel="stylesheet" href="css/events.css" />
 </head>
 <body>
 <div class="app">
@@ -43,7 +44,7 @@
     <nav class="sidebar__nav">
       <div class="sidebar__section">
         <div class="sidebar__section-title">Navigation</div>
-        <a href="index.html" class="sidebar__item sidebar__item--active">
+        <a href="index.html" class="sidebar__item">
           <i class="fa-solid fa-gauge-high"></i>
           <span>Dashboard</span>
         </a>
@@ -55,7 +56,7 @@
           <i class="fa-solid fa-calendar-plus"></i>
           <span>Create Events</span>
         </a>
-        <a href="events.html" class="sidebar__item">
+        <a href="events.html" class="sidebar__item sidebar__item--active">
           <i class="fa-solid fa-coins"></i>
           <span>Active Events</span>
         </a>
@@ -91,7 +92,7 @@
       </div>
     </header>
 
-    <!-- Stats cards
+    <!-- Stats cards 
     <section class="stats">
       <article class="stats-card">
         <div class="stats-card__header">
@@ -150,11 +151,16 @@
     <!-- Main Card -->
     <section class="card card--stretch outstanding-tasks">
       <div class="card__header">
-        <h2>Placeholder Main Card</h2>
+        <h2>Active Events</h2>
       </div>
       <div class="card__body">
+        <div id="events-container" class="events-grid"></div>
+        <p id="events-empty" class="events-empty">
+          There are no active events yet. Once you create an event, it will appear here.
+        </p>
       </div>
     </section>
+
 
     <footer class="footer">
       <span>Made with ❤️ by Survivalmaster</span>
@@ -164,6 +170,7 @@
 </div>
 
 <script src="script.js"></script>
+<script src="js/events-list.js"></script>
 
 <!-- Username Popup Modal -->
 <div id="usernameModal" class="username-modal hidden">

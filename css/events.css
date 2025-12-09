@@ -1,0 +1,129 @@
+/* Grid of cards inside the main placeholder card */
+.events-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 14px;
+}
+
+/* Individual event card (light theme) */
+.event-card {
+  background: #ffffff;
+  border: 1px solid #e1e5ee;
+  border-radius: 14px;
+  padding: 12px 14px;
+  box-shadow: 0 3px 8px rgba(15, 23, 42, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 150px;
+  font-size: 13px;
+}
+
+.event-card__header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+  color: #6b7280;
+}
+
+.event-card__title {
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.event-card__date {
+  font-size: 13px;
+  font-weight: 500;
+  color: #1d4ed8;
+}
+
+.event-card__handler {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+.event-card__desc {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Footer layout in the card */
+.event-card__footer {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+}
+
+.event-card__icons-left,
+.event-card__icons-right {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Simple, clean icon buttons – NO circles, NO borders */
+.event-icon-btn {
+  border: none;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  color: #6b7280;
+  transition: color 0.15s ease, transform 0.15s ease;
+}
+
+.event-icon-btn:hover {
+  color: #111827;
+  transform: translateY(-1px);
+}
+
+/* Discord SVG sizing */
+.discord-icon {
+  width: 18px;
+  height: 18px;
+}
+
+/* Proper badge-style status pill */
+.event-status-pill {
+  border: none;
+  outline: none;
+  background: #2563eb;
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 2px rgba(15, 23, 42, 0.12);
+  cursor: default;
+}
+
+/* Variants (same naming as before) */
+.event-status-pill.status-live {
+  background: #16a34a;
+}
+
+.event-status-pill.status-setup {
+  background: #fbbf24;
+  color: #1f2937;
+}
+
+.event-status-pill.status-concluded {
+  background: #b91c1c;
+}
+
+.events-empty {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #6b7280;
+}

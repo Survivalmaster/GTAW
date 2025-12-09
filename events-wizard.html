@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Events Portal - Wizard</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <link rel="icon" type="image/png" href="assets/favicon.png">
+
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- Icons -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+    integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- Master layout styles (DO NOT TOUCH) -->
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Page-specific styles -->
+  <link rel="stylesheet" href="css/event-wizard.css" />
+</head>
+<body>
+<div class="app">
+
+  <!-- SIDEBAR (unchanged) -->
+  <aside class="sidebar">
+    <div class="sidebar__logo">
+      <div class="logo-circle">
+        <img src="assets/logo.png" alt="Events Logo" class="logo-img">
+      </div>
+      <div class="logo-text">
+        <div class="logo-title">Events Team</div>
+        <div class="logo-subtitle">The Events Team Portal</div>
+      </div>
+    </div>
+
+    <nav class="sidebar__nav">
+      <div class="sidebar__section">
+        <div class="sidebar__section-title">Navigation</div>
+        <a href="index.html" class="sidebar__item">
+          <i class="fa-solid fa-gauge-high"></i>
+          <span>Dashboard</span>
+        </a>
+      </div>
+
+      <div class="sidebar__section">
+        <div class="sidebar__section-title">Sections</div>
+        <a href="events-wizard.html" class="sidebar__item sidebar__item--active">
+          <i class="fa-solid fa-calendar-plus"></i>
+          <span>Create Events</span>
+        </a>
+        <a href="events.html" class="sidebar__item">
+          <i class="fa-solid fa-coins"></i>
+          <span>Active Events</span>
+        </a>
+      </div>
+    </nav>
+
+    <div class="sidebar__footer">
+      <span>© GTAW Events Team 2026</span>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- TOPBAR (unchanged) -->
+    <header class="topbar">
+      <button class="topbar__menu-btn" id="menuToggle">
+        <i class="fa-solid fa-bars"></i>
+      </button>
+
+      <div class="topbar__right">
+        <div class="topbar__clock" id="clock">21:24:48</div>
+        <button class="icon-btn">
+          <i class="fa-regular fa-bell"></i>
+          <span class="icon-badge">0</span>
+        </button>
+        <div class="topbar__user">
+          <div class="topbar__avatar">S</div>
+          <div class="topbar__user-info">
+            <div class="topbar__user-name">Survivalmaster</div>
+            <div class="topbar__user-role">Events Team</div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN CARD: Event Wizard lives here -->
+    <section class="card card--stretch outstanding-tasks">
+      <div class="card__header">
+        <div>
+          <h2>Event Wizard</h2>
+        </div>
+      </div>
+
+      <div class="card__body">
+        <!-- Wizard card from original tool, but without Settings button -->
+        <div class="wizard-card">
+          <div class="wizard-stages">
+            <div class="stage-pill stage-1 active" data-stage-label="1">
+              <span class="stage-badge"></span>
+              Stage 1
+            </div>
+            <div class="stage-pill stage-2" data-stage-label="2">
+              <span class="stage-badge"></span>
+              Stage 2
+            </div>
+            <div class="stage-pill stage-3" data-stage-label="3">
+              <span class="stage-badge"></span>
+              Stage 3
+            </div>
+          </div>
+
+          <!-- STAGE 1 -->
+          <div class="wizard-stage" data-stage="1">
+            <div class="wizard-heading">Stage 1 – Event basics</div>
+            <div class="wizard-subheading">
+              Pull the key details from the Discord ticket so you can generate the <code>/createproperty</code> command.
+            </div>
+
+            <div class="fields-grid" style="margin-top:8px;">
+              <div>
+                <label for="handler">Event Handler</label>
+                <input type="text" id="handler" placeholder="Handling admin…" />
+                <div class="error-text hidden" data-error-for="handler">Required.</div>
+              </div>
+
+              <div>
+                <label for="event-type">Event Type</label>
+                <select id="event-type">
+                  <option value="">Type of event…</option>
+                  <option value="2">2 – Commercial Property</option>
+                  <option value="4">4 – Commercial Property Garage</option>
+                </select>
+                <div class="error-text hidden" data-error-for="event-type">Required.</div>
+              </div>
+
+              <div class="inline-two">
+                <div>
+                  <label for="event-date">Event Date / Time</label>
+                  <input type="date" id="event-date" />
+                  <div class="error-text hidden" data-error-for="event-date">Required.</div>
+                </div>
+                <div>
+                  <label>&nbsp;</label>
+                  <input type="time" id="event-time" />
+                  <div class="error-text hidden" data-error-for="event-time">Required.</div>
+                </div>
+              </div>
+
+              <div>
+                <label for="event-name">Event Name</label>
+                <input type="text" id="event-name" placeholder="Name of event" />
+                <div class="error-text hidden" data-error-for="event-name">Required.</div>
+              </div>
+
+              <div>
+                <label for="event-district">Event District</label>
+                <input type="text" id="event-district" placeholder="District of event" />
+              </div>
+
+              <div>
+                <label for="discord-link">Discord Channel Link</label>
+                <input type="text" id="discord-link" placeholder="Discord ticket link" />
+              </div>
+
+              <div style="grid-column:1/-1;">
+                <label for="event-description">Event Brief Description</label>
+                <textarea id="event-description" placeholder="Brief description of event from ticket…"></textarea>
+              </div>
+            </div>
+
+            <div class="section-spacer">
+              <label for="create-command">
+                Generated Command
+                <span class="label-hint"> · /createproperty line for the event dimension</span>
+              </label>
+              <div class="command-row">
+                <input
+                  type="text"
+                  id="create-command"
+                  value="/createproperty 2 0 200 0 1 M [EVENT]"
+                />
+                <button class="btn-copy" data-copy-from="create-command">Copy Command</button>
+              </div>
+            </div>
+
+            <div class="section-spacer">
+              <label for="property-id">
+                Property ID
+                <span class="label-hint"> · Fill in after you’ve created the property in-game</span>
+              </label>
+              <input type="text" id="property-id" placeholder="Generated property ID" />
+              <div class="error-text hidden" data-error-for="property-id">
+                Required before submitting event.
+              </div>
+            </div>
+          </div>
+
+          <!-- STAGE 2 -->
+          <div class="wizard-stage hidden" data-stage="2">
+            <div class="wizard-heading">Stage 2 – Set owner & dimension</div>
+            <div class="wizard-subheading">
+              Run these commands to set the property condition, assign an owner and place yourself into the dimension.
+            </div>
+
+            <div class="section-spacer">
+              <label for="cmd-pcond">Property Condition</label>
+              <div class="command-row">
+                <input type="text" id="cmd-pcond" value="/pcond 1" />
+                <button class="btn-copy" data-copy-from="cmd-pcond">Copy Command</button>
+              </div>
+            </div>
+
+            <div class="section-spacer">
+              <label>Setting Property Owner</label>
+              <div class="checkbox-list">
+                <label class="checkbox-item">
+                  <input type="checkbox" id="own-ingame" checked />
+                  <span>Assign owner who is in-game</span>
+                </label>
+                <label class="checkbox-item">
+                  <input type="checkbox" id="own-offline" />
+                  <span>Assign owner who is offline</span>
+                </label>
+              </div>
+
+              <div id="owner-ingame-block">
+                <label for="player-id">Type the Player's ID here…</label>
+                <div class="command-row">
+                  <input type="text" id="player-id" placeholder="1234" />
+                  <button class="btn-copy" data-copy-from="cmd-powner">Copy Command</button>
+                </div>
+                <input type="text" id="cmd-powner" value="/powner" class="hidden" />
+              </div>
+
+              <div id="owner-offline-block" class="hidden">
+                <label for="char-name">Type the Character Name here…</label>
+                <div class="command-row">
+                  <input type="text" id="char-name" placeholder="Character Name" />
+                  <button class="btn-copy" data-copy-from="cmd-gcioffline">Copy Command</button>
+                </div>
+                <input type="text" id="cmd-gcioffline" value="/gcioffline" class="hidden" />
+
+                <br />
+
+                <label for="ucp-id">Type UCP Character ID…</label>
+                <div class="command-row">
+                  <input type="text" id="ucp-id" placeholder="1" />
+                  <button class="btn-copy" data-copy-from="cmd-powneroffline">Copy Command</button>
+                </div>
+                <input
+                  type="text"
+                  id="cmd-powneroffline"
+                  value="/powneroffline 1"
+                  class="hidden"
+                />
+              </div>
+            </div>
+
+            <div class="section-spacer">
+              <label>Setting yourself to the dimension</label>
+              <label
+                for="admin-id"
+                class="label-hint"
+                style="display:block;margin-bottom:4px;"
+              >
+                Type your in-game ID then use /setdim
+              </label>
+              <div class="command-row">
+                <input type="text" id="admin-id" placeholder="Your ID…" />
+                <button class="btn-copy" data-copy-from="cmd-setdim">Copy Command</button>
+              </div>
+              <input type="text" id="cmd-setdim" value="/setdim" class="hidden" />
+            </div>
+          </div>
+
+          <!-- STAGE 3 -->
+          <div class="wizard-stage hidden" data-stage="3">
+            <div class="wizard-heading">Stage 3 – Prepping the dimension</div>
+            <div class="wizard-subheading">
+              Finalise weather, time and property flags so the dimension is ready for players.
+            </div>
+
+            <div class="section-spacer">
+              <label>Prepping the Dimension</label>
+
+              <div class="command-row">
+                <input type="text" id="cmd-pextdim" value="/pextdim" />
+                <button class="btn-copy" data-copy-from="cmd-pextdim">Copy Command</button>
+              </div>
+
+              <div class="command-row">
+                <input type="text" id="cmd-ptime" value="/ptime -1" />
+                <button class="btn-copy" data-copy-from="cmd-ptime">Copy Command</button>
+              </div>
+
+              <div class="command-row">
+                <input type="text" id="cmd-pweather" value="/pweather -1" />
+                <button class="btn-copy" data-copy-from="cmd-pweather">Copy Command</button>
+              </div>
+
+              <div class="command-row">
+                <input
+                  type="text"
+                  id="cmd-psetfaction"
+                  value="/psetfaction 770 confirm"
+                />
+                <button class="btn-copy" data-copy-from="cmd-psetfaction">
+                  Copy Command
+                </button>
+              </div>
+
+              <div class="command-row">
+                <input
+                  type="text"
+                  id="cmd-pflagadd"
+                  value="/pflagadd 0 EVENT,EMITTERACCESS,NOLOCK,NOFALLCHECK"
+                />
+                <button class="btn-copy" data-copy-from="cmd-pflagadd">
+                  Copy Command
+                </button>
+              </div>
+            </div>
+
+            <div class="section-spacer">
+              <label for="notes">Internal notes (optional)</label>
+              <textarea
+                id="notes"
+                placeholder="Anything notable about this setup, bugs, warnings, etc."
+              ></textarea>
+            </div>
+          </div>
+
+          <!-- FOOTER -->
+          <div class="wizard-footer">
+            <button class="btn btn-ghost" id="btn-cancel">Cancel</button>
+            <div class="wizard-footer-right">
+              <button class="btn" id="btn-back" disabled>Back</button>
+              <button class="btn btn-primary" id="btn-next">Next</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <span>Made with ❤️ by Survivalmaster</span>
+      <span class="footer__version">v0.0.1</span>
+    </footer>
+  </main>
+</div>
+
+<!-- Global layout script (clock, sidebar toggle, etc – your existing one) -->
+<script src="script.js"></script>
+<!-- Page specific logic for the wizard -->
+<script src="js/event-wizard.js"></script>
+
+<!-- Username Popup Modal -->
+<div id="usernameModal" class="username-modal hidden">
+  <div class="username-modal__content">
+    <h3>Set Your Username</h3>
+    <input type="text" id="usernameInput" placeholder="Enter your name..." />
+    <div class="username-modal__actions">
+      <button id="usernameSaveBtn">Save</button>
+      <button id="usernameCancelBtn">Cancel</button>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
